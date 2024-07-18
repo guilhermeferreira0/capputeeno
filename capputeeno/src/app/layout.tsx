@@ -1,5 +1,11 @@
+import { Saira } from 'next/font/google'
 import type { Metadata } from "next";
 import "./globals.css";
+
+const saira = Saira({
+  weight: ['300', '400', '500', '600'],
+  subsets: ['latin']
+})
 
 export const metadata: Metadata = {
   title: "Capputeeno",
@@ -13,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>{children}</body>
+      <body className={saira.className}>{children}</body>
     </html>
   );
 }
