@@ -15,8 +15,9 @@ interface HeaderProps {}
 const TagHeader = styled.header`
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 20px 160px;
+  padding: 16px 24px;
 
   > div {
     display: flex;
@@ -24,13 +25,25 @@ const TagHeader = styled.header`
     justify-content: center;
     gap: 24px;
   }
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.large}) {
+    padding: 20px 160px;
+  }
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.medium}) {
+    flex-direction: row;
+  }
 `;
 
 const Logo = styled.a`
   color: var(--logo-color);
   font-weight: 400;
-  font-size: 40px;
+  font-size: 30px;
   line-height: 150%;
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.medium}) {
+    font-size: 40px;
+  }
 `;
 
 export function Header(props: HeaderProps) {

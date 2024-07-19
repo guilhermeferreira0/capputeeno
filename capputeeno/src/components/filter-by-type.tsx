@@ -14,20 +14,32 @@ const FilterList = styled.ul`
   list-style-type: none;
   list-style-position: inside;
 
-  gap: 40px;
+  gap: 20px;
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.small}) {
+    gap: 40px;
+  }
 `;
 
 const FilterItem = styled.li<FilterItemProps>`
   font-family: inherit;
   font-weight: ${props => props.selected ? '600' : '400'};
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 10px;
+  line-height: 18px;
   text-align: center;
   text-transform: uppercase;
   color: var(--text-dark);
   cursor: pointer;
 
   border-bottom: ${props => props.selected ? '4px solid var(--orange-low)' : ''};
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.small}) {
+    font-size: 12px;
+  }
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.medium}) {
+    font-size: 16px;
+  }
 `;
 
 export function FilterByType() {

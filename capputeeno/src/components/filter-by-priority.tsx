@@ -15,7 +15,7 @@ const FilterContainer = styled.div`
     cursor: pointer;
     font-family: inherit;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 10px;
     line-height: 22px;
     color: var(--text-dark);
 
@@ -27,11 +27,17 @@ const FilterContainer = styled.div`
       margin-left: 10px;
     }
   }
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.small}) {
+    button {
+      font-size: 12px;
+    }
+  }
 `;
 
 const PriorityFilter = styled.ul`
   position: absolute;
-  width: 250px;
+  width: 150px;
   background: #FFFFFF;
   box-shadow: 0px 4px 12px #0000003e;
   border-radius: 4px;
@@ -42,17 +48,28 @@ const PriorityFilter = styled.ul`
   list-style-position: inside;
 
   top: 100%;
+  right: 8px;
 
   li {
     color: var(--text-dark);
     font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
+    font-size: 12px;
+    line-height: 20px;
     cursor: pointer;
   }
 
   li + li {
     margin-top: 4px;
+  }
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.small}) {
+    right: 0;
+    width: 250px;
+
+    li {
+      font-size: 14px;
+      line-height: 22px;
+    }
   }
 `;
 

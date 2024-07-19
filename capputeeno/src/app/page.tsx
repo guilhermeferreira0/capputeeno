@@ -1,11 +1,26 @@
+'use client';
 import { FilterBar } from "@/components/filter-bar";
 import { ProductsList } from "@/components/products-list";
+import styled from "styled-components";
+
+const PageWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 24px;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+
+  @media (min-width: ${props => props.theme.deviceBreakpoint.large}) {
+    padding: 34px 160px;
+  }
+`;
 
 export default function HomePage() {
   return (
-    <main>
+    <PageWrapper>
       <FilterBar />
       <ProductsList />
-    </main>
+    </PageWrapper>
   );
 }
