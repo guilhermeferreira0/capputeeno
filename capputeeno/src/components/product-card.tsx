@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+import { formatHref } from "@/utils/format-href";
 import { formatPrice } from "@/utils/format-price";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface ProductCardProps {
@@ -18,12 +20,21 @@ const Card = styled.div`
   border-radius: 0px 0px 4px 4px;
   width: 256px;
 
+  cursor: pointer;
+  transition: all 450ms ease-in-out;
+
+  a {
+    width: 100%;
+    text-decoration: none;
+  }
+
   div {
+    width: 100%;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    padding: 8px 0;
+    padding: 8px 5px;
 
     span {
       padding: 0;
@@ -51,19 +62,27 @@ const Card = styled.div`
     font-size: 14px;
     color: var(--shapes-dark);
   }
+
+  &:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  }
 `;
 
 export function ProductCard(props: ProductCardProps) {
   const price = formatPrice(props.price);
+  const url = formatHref(props.title);
 
   return (
     <Card>
-      <img src={props.image} alt={props.title} />
-      <div>
-        <h3>{props.title}</h3>
-        <span></span>
-        <p>{price}</p>
-      </div>
+      <Link href={url}>
+        <img src={props.image} alt={props.title} />
+        <div>
+          <h3>{props.title}</h3>
+          <span></span>
+          <p>{price}</p>
+        </div>
+      </Link>
     </Card>
   );
 }
