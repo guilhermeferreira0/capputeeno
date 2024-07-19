@@ -5,6 +5,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 interface ProductCardProps {
+  id: string,
   title: string,
   image: string,
   price: number,
@@ -71,11 +72,10 @@ const Card = styled.div`
 
 export function ProductCard(props: ProductCardProps) {
   const price = formatPrice(props.price);
-  const url = formatHref(props.title);
 
   return (
     <Card>
-      <Link href={url}>
+      <Link href={`product?id=${props.id}`}>
         <img src={props.image} alt={props.title} />
         <div>
           <h3>{props.title}</h3>
