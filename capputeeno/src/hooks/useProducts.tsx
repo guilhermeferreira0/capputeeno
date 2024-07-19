@@ -17,7 +17,6 @@ export function useProducts() {
   const { type, priority, search } = useFilter();
   const searchDeferred = useDeferredValue(search);
   const query = mountQuery(type, priority);
-  console.log(query)
 
   const { data } = useQuery({
     queryFn: () => fetcher(query),
