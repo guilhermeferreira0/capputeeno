@@ -108,6 +108,35 @@ const ProductInfo = styled.div`
 export default function ProductDetailPage({searchParams}: { searchParams: {id: string} }) {
   const { data } = useProduct(searchParams.id);
 
+  const handleAddToCart = () => {
+    let cartItems = localStorage.getItem('cart-items');
+
+    if (cartItems) {
+      const cartParse = JSON.parse(cartItems);
+      const existingProductIndex = cartParse.findIndex((item: any) => {
+        return item.id === searchParams.id;
+      })
+
+      if (existingProductIndex !== -1) {
+        const prodUpdateQuantity = cartParse[existingProductIndex];
+        prodUpdateQuantity.quantity += 1;
+
+        cartParse[existingProductIndex] = prodUpdateQuantity;
+        localStorage.setItem('cart-items', JSON.stringify(cartParse));
+        return;
+      }
+
+      const newCart = [...cartParse, {...data, id: searchParams.id, quantity: 1,}];
+      console.log(newCart);
+      localStorage.setItem('cart-items', JSON.stringify(newCart));
+      return;
+    }
+
+    const newCart = [{...data, id: searchParams.id, quantity: 1,}];
+    localStorage.setItem('cart-items', JSON.stringify(newCart));
+  }
+
+
   return (
     <Container>
       <BackButton />
@@ -124,7 +153,7 @@ export default function ProductDetailPage({searchParams}: { searchParams: {id: s
               <p>{data?.description}</p>
             </div>
           </ProductInfo>
-          <button>
+          <button onClick={handleAddToCart}>
             <ShopBagIcon />
             Adicionar ao carrinho
           </button>
