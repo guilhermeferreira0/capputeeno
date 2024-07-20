@@ -22,3 +22,8 @@ export interface ProductFetchResponse {
     Product: Product
   }
 }
+
+export interface ProductPages {
+  page: number,
+  perPage: number,
+}

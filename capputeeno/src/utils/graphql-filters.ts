@@ -1,8 +1,8 @@
 import { FilterType } from "@/types/filter-types";
 import { PriorityTypes } from "@/types/priority-types";
+import { ProductPages } from "@/types/products-response";
 
 export function getCategory(type: FilterType) {
-
   if (type === FilterType.MUG) return "mugs";
   if (type === FilterType.SHIRT) return "t-shirts";
 
@@ -17,7 +17,16 @@ export function getField(priority: PriorityTypes) {
   return {field: "sales", order: "ASC"}
 }
 
-export function mountQuery(type: FilterType, priority: PriorityTypes) {
+export function getProductsPerPage(pages: ProductPages) {
+  if (!pages) return {page: 0, perPage: 12};
+
+  return {
+    page: pages.page,
+    perPage: pages.perPage
+  }
+}
+
+export function mountQuery(type: FilterType, priority: PriorityTypes, product: ProductPages) {
   if (type === FilterType.ALL && priority === PriorityTypes.POPULARITY) return `query {
     allProducts(sortField: "sales", sortOrder: "DSC") {
       id
@@ -29,10 +38,16 @@ export function mountQuery(type: FilterType, priority: PriorityTypes) {
 
   const sortSettings = getField(priority);
   const categoryFilter = getCategory(type);
+  const pages = getProductsPerPage(product);
 
   return `query {
-    allProducts(sortField: "${sortSettings.field}" sortOrder: "${sortSettings.order}"
-      ${categoryFilter ? `filter: { category: "${getCategory(type)}" },` : ''}) {
+    allProducts(
+      page: ${pages.page}
+      perPage: ${pages.perPage}
+      sortField: "${sortSettings.field}"
+      sortOrder: "${sortSettings.order}"
+      ${categoryFilter && `filter: { category: "${getCategory(type)}" }`}
+    ) {
       id
       name
       price_in_cents

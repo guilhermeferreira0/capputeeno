@@ -13,6 +13,7 @@ const ListContainer = styled.div`
 
 export function ProductsList() {
   const {data} = useProducts();
+  if (data?.length === 0) return <p>No Products!!</p>
 
   return (
     <ListContainer>
