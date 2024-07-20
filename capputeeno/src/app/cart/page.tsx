@@ -125,6 +125,27 @@ const TotalItem = styled.div`
     display: flex;
     justify-content: space-between;
   }
+
+  button {
+    border: none;
+    width: 100%;
+    border-radius: 4px 0px 0px 0px;
+    background-color: #51B853;
+    color: white;
+    padding: 10px 24px;
+    margin: 20px 0;
+    cursor: pointer;
+
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    transition: all .3s ease;
+
+    &:hover {
+      transform: translate(-5px, -5px);
+    }
+  }
 `;
 
 export default function CartPage() {
@@ -196,7 +217,7 @@ export default function CartPage() {
                 {formatPrice(frete+cartTotal)}
               </p>
             </strong>
-            <button></button>
+            <button>Finalizar a compra</button>
           </TotalItem>
           <div>
             <ul>
