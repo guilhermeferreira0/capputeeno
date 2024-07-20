@@ -3,9 +3,12 @@ import { ArrowIcon } from "./icons/arrow-icon";
 import { useState } from "react";
 import { useFilter } from "@/hooks/useFilter";
 import { PriorityTypes } from "@/types/priority-types";
+import { ArrowLeftIcon } from "./icons/arrorw-left-icon";
+import { ArrowRightIcon } from "./icons/arrow-right-icon";
 
 const FilterContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   position: relative;
 
@@ -47,8 +50,8 @@ const PriorityFilter = styled.ul`
   list-style-type: none;
   list-style-position: inside;
 
-  top: 100%;
-  right: 8px;
+  top: 30%;
+  right: 25%;
 
   li {
     color: var(--text-dark);
@@ -73,14 +76,46 @@ const PriorityFilter = styled.ul`
   }
 `;
 
+const FilterPerPage = styled.div`
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+
+  button {
+    width: 15px;
+    height: 32px;
+    border-radius: 8px 0px 0px 0px;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #737380;
+    background-color: #E9E9F0;
+
+    svg {
+      margin: auto;
+    }
+  }
+
+  @media (min-width: ${(props) => props.theme.deviceBreakpoint.medium}) {
+    button {
+      width: 32px;
+    }
+  }
+`;
+
 export function FilterByPriority() {
   const [isOpen, setIsOpen] = useState(false);
-  const { setPriority } = useFilter();
+  const { setPriority, setPage, page } = useFilter();
 
   const handleOpen = () => setIsOpen(prev => !prev);
   const handleUpdatePriority = (value: PriorityTypes) => {
     setPriority(value);
     setIsOpen(false);
+  }
+
+  const handleProductPage = (page: number) => {
+    setPage(page);
   }
 
   return (
@@ -97,6 +132,19 @@ export function FilterByPriority() {
           <li onClick={() => handleUpdatePriority(PriorityTypes.POPULARITY)}>Mais Vendidos</li>
         </PriorityFilter>
       }
+      <FilterPerPage>
+        <button onClick={() => handleProductPage(0)}>1</button>
+        <button onClick={() => handleProductPage(1)}>2</button>
+        <button onClick={() => handleProductPage(2)}>3</button>
+        <button onClick={() => handleProductPage(3)}>4</button>
+        <button onClick={() => handleProductPage(4)}>5</button>
+        <button onClick={() => handleProductPage(page - 1)}>
+          <ArrowLeftIcon />
+        </button>
+        <button onClick={() => handleProductPage(page + 1)}>
+          <ArrowRightIcon />
+        </button>
+      </FilterPerPage>
     </FilterContainer>
   );
 }
